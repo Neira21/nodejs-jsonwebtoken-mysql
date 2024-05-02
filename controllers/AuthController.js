@@ -28,7 +28,7 @@ export const RegisterUser = async (req, res) => {
     let passHash = await bcryptjs.hash(pass, 8);
 
     const result = await connectDB.query(
-      "INSERT INTO usuarios (name, user, pass) VALUES (?, ?, ?)",
+      "INSERT INTO usuarios (name, username, pass) VALUES (?, ?, ?)",
       [name, user, passHash]
     );
     if (result[0].affectedRows > 0) {
@@ -61,7 +61,7 @@ export const LoginUser = async (req, res) => {
     } else {
       try {
         const results = await connectDB.query(
-          "SELECT * FROM usuarios WHERE user = ?",
+          "SELECT * FROM usuarios WHERE username = ?",
           [user]
         );
         //console.log(results)
